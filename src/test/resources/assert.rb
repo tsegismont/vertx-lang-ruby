@@ -42,7 +42,7 @@ module Assert
   def self.argument_error(&callback)
     failed = false
     begin
-      callback.call;
+      callback.call
     rescue ArgumentError
       failed = true
     end

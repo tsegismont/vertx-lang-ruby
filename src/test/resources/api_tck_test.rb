@@ -19,11 +19,11 @@ java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
 @refed_obj = Testmodel::RefedInterface1.new(RefedInterface1Impl.new)
 
 def testMethodWithBasicParams
-  @obj.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar');
+  @obj.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
 end
 
 def testMethodWithBasicBoxedParams
-  @obj.method_with_basic_boxed_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88);
+  @obj.method_with_basic_boxed_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88)
 end
 
 def testMethodWithHandlerBasicTypes
@@ -118,7 +118,7 @@ def testMethodWithHandlerStringReturn
   begin
     handler.call("unexpected")
   rescue Object => e
-    failed = true;
+    failed = true
   end
   Assert.equals(failed, true)
 end
@@ -128,16 +128,16 @@ def testMethodWithHandlerGenericReturn
   handler = @obj.method_with_handler_generic_return() { |val|
     result = val
   }
-  handler.call("the-result");
+  handler.call("the-result")
   Assert.equals(result, "the-result")
-  handler.call(@obj);
-  Assert.equals(result, @obj)
+  handler.call(@obj)
+  Assert.equals(result, @obj.j_del)
 end
 
 def testMethodWithHandlerVertxGenReturn
   handler = @obj.method_with_handler_vertx_gen_return("the-result")
   @refed_obj.set_string('the-result')
-  handler.call(@refed_obj);
+  handler.call(@refed_obj)
 end
 
 def testMethodWithHandlerAsyncResultStringReturn
@@ -147,16 +147,16 @@ def testMethodWithHandlerAsyncResultStringReturn
   begin
     succeedingHandler.call(nil)
   rescue Object => e
-    failed = true;
+    failed = true
   end
   Assert.equals(failed, true)
   failingHandler = @obj.method_with_handler_async_result_string_return("an-error", true)
-  failingHandler.call("an-error");
+  failingHandler.call("an-error")
   failed = false
   begin
-    failingHandler.call(nil, "unexpected");
+    failingHandler.call(nil, "unexpected")
   rescue Object => e
-    failed = true;
+    failed = true
   end
   Assert.equals(failed, true)
 end
@@ -170,18 +170,18 @@ def testMethodWithHandlerAsyncResultGenericReturn
       result = err
     end
   }
-  succeedingHandler.call(nil, "the-result");
+  succeedingHandler.call(nil, "the-result")
   Assert.equals(result, "the-result")
-  succeedingHandler.call(nil, @obj);
-  Assert.equals(result, @obj)
+  succeedingHandler.call(nil, @obj)
+  Assert.equals(result, @obj.j_del)
 end
 
 def testMethodWithHandlerAsyncResultVertxGenReturn
   handler = @obj.method_with_handler_async_result_vertx_gen_return("the-async-result", false)
   @refed_obj.set_string('the-async-result')
-  handler.call(nil, @refed_obj);
+  handler.call(nil, @refed_obj)
   handler = @obj.method_with_handler_async_result_vertx_gen_return("the-async-failure", true)
-  handler.call("the-async-failure", nil);
+  handler.call("the-async-failure", nil)
 end
 
 def testMethodWithHandlerUserTypes
