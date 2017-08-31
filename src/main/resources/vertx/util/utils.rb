@@ -11,12 +11,12 @@ module Vertx
       def self.from_throwable(err)
         begin
           raise_runtime_exception(err)
-        rescue Exception => e;
-          return e;
+        rescue Exception => e
+          return e
         end
       end
       def self.to_throwable(err)
-        Java::IoVertxLangRuby::Helper.catchAndReturnThrowable(Proc.new { raise err });
+        Java::IoVertxLangRuby::Helper.catchAndReturnThrowable(Proc.new {raise err})
       end
       def self.safe_create(object, clazz, *args)
         if nil != object
@@ -128,17 +128,17 @@ module Vertx
       end
       def self.to_handler_proc(handler, &converter)
         Proc.new { |val|
-          val = yield val;
-          handler.handle(val);
+          val = yield val
+          handler.handle(val)
         }
       end
       def self.to_async_result_handler_proc(handler, &converter)
         Proc.new { |err,val|
           if nil != err
-            handler.handle(Java::IoVertxLangRuby::Helper.failedResult(err));
+            handler.handle(Java::IoVertxLangRuby::Helper.failedResult(err))
           else
-            val = yield val;
-            handler.handle(Java::IoVertxLangRuby::Helper.succeededResult(val));
+            val = yield val
+            handler.handle(Java::IoVertxLangRuby::Helper.succeededResult(val))
           end
         }
       end
@@ -293,7 +293,7 @@ module Vertx
         JSON.parse(obj.toJson.encode)
       end
       def unwrap(obj)
-        @clazz.new(Utils.to_json_object(obj));
+        @clazz.new(Utils.to_json_object(obj))
       end
     end
     def self.data_object_type(clazz)

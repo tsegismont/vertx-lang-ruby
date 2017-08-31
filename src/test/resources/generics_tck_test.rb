@@ -497,7 +497,7 @@ def checkMethodWithClassType values
 end
 
 def testInterfaceWithStringArg
-  ret = @obj.interface_with_string_arg('the_string_value');
+  ret = @obj.interface_with_string_arg('the_string_value')
   Assert.is_not_nil ret.j_del
   val = ret.get_value
   Assert.equals('the_string_value', val)
